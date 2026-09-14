@@ -1,0 +1,64 @@
+@page
+@model Web_razor_tarea.Pages.Mascotas.DetailsModel
+@{
+    ViewData["Title"] = "Detalle de Mascota";
+}
+
+<div class="d-flex align-items-center mb-3">
+    <a asp-page="Index" class="btn btn-sm btn-pastel-menta me-3">
+        <i class="bi bi-arrow-left me-1"></i>Volver
+    </a>
+    <h2 class="titulo-pagina mb-0">
+        <i class="bi bi-emoji-smile-fill me-2"></i>Detalle de Mascota
+    </h2>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header mascotas py-2">
+                <span class="fw-semibold">@Model.Mascota.Nombre</span>
+            </div>
+            <div class="card-body">
+                <dl class="row mb-0">
+                    <dt class="col-5 text-muted">Nombre</dt>
+                    <dd class="col-7">@Model.Mascota.Nombre</dd>
+
+                    <dt class="col-5 text-muted">Especie</dt>
+                    <dd class="col-7">@Model.Mascota.Especie</dd>
+
+                    <dt class="col-5 text-muted">Raza</dt>
+                    <dd class="col-7">@Model.Mascota.Raza</dd>
+
+                    <dt class="col-5 text-muted">Fecha de Nacimiento</dt>
+                    <dd class="col-7">@Model.Mascota.FechaNacimiento.ToString("dd/MM/yyyy")</dd>
+
+                    <dt class="col-5 text-muted">Propietario</dt>
+                    <dd class="col-7">
+                        @Model.Mascota.Propietario?.Nombre @Model.Mascota.Propietario?.Apellidos
+                    </dd>
+
+                    <dt class="col-5 text-muted">Estado</dt>
+                    <dd class="col-7">
+                        @if (Model.Mascota.Activo)
+                        {
+                            <span class="badge badge-activo rounded-pill px-3">Activo</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-inactivo rounded-pill px-3">Inactivo</span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+            <div class="card-footer bg-transparent border-0 d-flex gap-2">
+                <a asp-page="Edit" asp-route-id="@Model.Mascota.Id" class="btn btn-pastel-menta">
+                    <i class="bi bi-pencil-fill me-1"></i>Editar
+                </a>
+                <a asp-page="Delete" asp-route-id="@Model.Mascota.Id" class="btn btn-pastel-rosa">
+                    <i class="bi bi-trash3-fill me-1"></i>Eliminar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
