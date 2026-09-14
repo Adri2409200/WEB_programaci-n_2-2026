@@ -1,31 +1,223 @@
+/* ── Variables de color pastel ── */
+:root {
+    --lila:        #c9b8e8;
+    --lila-claro:  #e8dffc;
+    --rosa:        #f7c5d5;
+    --rosa-claro:  #fde8ef;
+    --menta:       #b8e8d4;
+    --menta-claro: #dff5ec;
+    --cielo:       #b8d8f0;
+    --cielo-claro: #dff0fb;
+    --durazno:     #f7ddb8;
+    --texto:       #4a4063;
+    --texto-suave: #7a6f8a;
+    --blanco-op:   rgba(255,255,255,0.75);
+    --sombra:      0 4px 18px rgba(160,130,200,0.15);
+}
+
+/* ── Base ── */
 html {
-  font-size: 14px;
+    font-size: 15px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html { font-size: 16px; }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 70px;
+    background: linear-gradient(135deg, #f0ebff 0%, #fce4ec 50%, #e0f7f0 100%);
+    background-attachment: fixed;
+    color: var(--texto);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* ── Navbar ── */
+.navbar-veterinaria {
+    background: linear-gradient(90deg, var(--lila) 0%, var(--rosa) 60%, var(--durazno) 100%);
+    box-shadow: var(--sombra);
+    border-bottom: none;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.navbar-veterinaria .navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--texto) !important;
+    letter-spacing: 0.03em;
 }
+
+.navbar-veterinaria .nav-link {
+    color: var(--texto) !important;
+    font-weight: 500;
+    border-radius: 20px;
+    padding: 0.35rem 0.9rem !important;
+    transition: background 0.2s, color 0.2s;
+}
+
+.navbar-veterinaria .nav-link:hover,
+.navbar-veterinaria .nav-link.active {
+    background: var(--blanco-op);
+    color: #5a3e7a !important;
+}
+
+.navbar-toggler {
+    border-color: rgba(90,62,122,0.3);
+}
+
+/* ── Contenido principal ── */
+.container-main {
+    background: var(--blanco-op);
+    backdrop-filter: blur(6px);
+    border-radius: 18px;
+    padding: 2rem;
+    box-shadow: var(--sombra);
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Tarjetas ── */
+.card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: var(--sombra);
+    background: rgba(255,255,255,0.82);
+    backdrop-filter: blur(4px);
+}
+
+.card-header {
+    border-radius: 16px 16px 0 0 !important;
+    font-weight: 600;
+    border-bottom: none;
+}
+
+.card-header.propietarios { background: linear-gradient(90deg, var(--lila), var(--lila-claro)); }
+.card-header.mascotas     { background: linear-gradient(90deg, var(--menta), var(--menta-claro)); }
+.card-header.veterinarios { background: linear-gradient(90deg, var(--cielo), var(--cielo-claro)); }
+.card-header.citas        { background: linear-gradient(90deg, var(--rosa), var(--rosa-claro)); }
+.card-header.default      { background: linear-gradient(90deg, var(--lila), var(--rosa-claro)); }
+
+/* ── Botones ── */
+.btn-pastel-lila {
+    background: linear-gradient(135deg, var(--lila), #b09dd4);
+    color: var(--texto);
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: opacity 0.2s, transform 0.15s;
+}
+
+.btn-pastel-lila:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+    color: var(--texto);
+}
+
+.btn-pastel-rosa {
+    background: linear-gradient(135deg, var(--rosa), #f0a8c0);
+    color: var(--texto);
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: opacity 0.2s, transform 0.15s;
+}
+
+.btn-pastel-rosa:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+    color: var(--texto);
+}
+
+.btn-pastel-menta {
+    background: linear-gradient(135deg, var(--menta), #8dd4b4);
+    color: var(--texto);
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: opacity 0.2s, transform 0.15s;
+}
+
+.btn-pastel-menta:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+    color: var(--texto);
+}
+
+.btn-pastel-cielo {
+    background: linear-gradient(135deg, var(--cielo), #8dc4e8);
+    color: var(--texto);
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: opacity 0.2s, transform 0.15s;
+}
+
+.btn-pastel-cielo:hover {
+    opacity: 0.88;
+    transform: translateY(-1px);
+    color: var(--texto);
+}
+
+/* ── Tablas ── */
+.table-pastel thead {
+    background: linear-gradient(90deg, var(--lila-claro), var(--rosa-claro));
+    color: var(--texto);
+}
+
+.table-pastel tbody tr:hover {
+    background: rgba(201,184,232,0.18);
+}
+
+.table-pastel {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+/* ── Formularios ── */
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--lila);
+    box-shadow: 0 0 0 0.2rem rgba(201,184,232,0.45);
+}
+
+.form-label {
+    font-weight: 500;
+    color: var(--texto-suave);
+}
+
+/* ── Badges de estado ── */
+.badge-pendiente  { background: var(--durazno);  color: var(--texto); }
+.badge-completada { background: var(--menta);    color: var(--texto); }
+.badge-cancelada  { background: var(--rosa);     color: var(--texto); }
+.badge-activo     { background: var(--menta);    color: var(--texto); }
+.badge-inactivo   { background: var(--rosa);     color: var(--texto); }
+
+/* ── Footer ── */
+.footer-veterinaria {
+    background: linear-gradient(90deg, var(--lila-claro), var(--rosa-claro));
+    border-top: none !important;
+    color: var(--texto-suave);
+    font-size: 0.88rem;
+    padding: 1rem 0;
+}
+
+/* ── Títulos de página ── */
+.titulo-pagina {
+    color: var(--texto);
+    font-weight: 700;
+    border-left: 5px solid var(--lila);
+    padding-left: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+/* ── Alertas ── */
+.alert {
+    border-radius: 12px;
+    border: none;
+}
+
+.alert-success { background: var(--menta-claro); color: #2d6b50; }
+.alert-danger  { background: var(--rosa-claro);  color: #8b2a42; }
+.alert-warning { background: var(--durazno);     color: #7a5a1a; }
+.alert-info    { background: var(--cielo-claro); color: #1a4f7a; }
