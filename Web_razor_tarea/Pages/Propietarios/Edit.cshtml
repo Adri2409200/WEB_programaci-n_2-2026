@@ -1,0 +1,74 @@
+@page
+@model Web_razor_tarea.Pages.Propietarios.EditModel
+@{
+    ViewData["Title"] = "Editar Propietario";
+}
+
+<div class="d-flex align-items-center mb-3">
+    <a asp-page="Index" class="btn btn-sm btn-pastel-lila me-3">
+        <i class="bi bi-arrow-left me-1"></i>Volver
+    </a>
+    <h2 class="titulo-pagina mb-0">
+        <i class="bi bi-pencil-fill me-2"></i>Editar Propietario
+    </h2>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header propietarios py-2">
+                <small class="fw-semibold">Modifica los datos del propietario</small>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                    <input type="hidden" asp-for="Propietario.Id" />
+
+                    <div class="mb-3">
+                        <label asp-for="Propietario.Nombre" class="form-label"></label>
+                        <input asp-for="Propietario.Nombre" class="form-control" />
+                        <span asp-validation-for="Propietario.Nombre" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Propietario.Apellidos" class="form-label"></label>
+                        <input asp-for="Propietario.Apellidos" class="form-control" />
+                        <span asp-validation-for="Propietario.Apellidos" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Propietario.Telefono" class="form-label"></label>
+                        <input asp-for="Propietario.Telefono" class="form-control" />
+                        <span asp-validation-for="Propietario.Telefono" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Propietario.Email" class="form-label"></label>
+                        <input asp-for="Propietario.Email" class="form-control" />
+                        <span asp-validation-for="Propietario.Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="form-check">
+                            <input asp-for="Propietario.Activo" class="form-check-input" />
+                            <label asp-for="Propietario.Activo" class="form-check-label">Activo</label>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-pastel-lila">
+                            <i class="bi bi-floppy-fill me-1"></i>Guardar cambios
+                        </button>
+                        <a asp-page="Index" class="btn btn-pastel-rosa">
+                            <i class="bi bi-x-circle me-1"></i>Cancelar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
