@@ -228,3 +228,120 @@ body {
     color: #5a3e7a !important;
     font-weight: 700;
 }
+
+/* ── Animación de entrada en tarjetas ── */
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(160,130,200,0.22);
+}
+
+/* ── Tarjetas de acceso rápido en el inicio ── */
+.card-inicio {
+    transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.card-inicio:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(160,130,200,0.28);
+}
+
+/* ── Scroll suave en toda la página ── */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ── Footer responsive: no fixed en pantallas pequeñas ── */
+@media (max-width: 576px) {
+    .footer-veterinaria {
+        position: relative;
+    }
+
+    body {
+        margin-bottom: 0;
+    }
+
+    .container-main {
+        padding: 1.2rem;
+        border-radius: 12px;
+    }
+}
+
+/* ── Input group del buscador ── */
+.input-group .form-control:focus {
+    z-index: 3;
+}
+
+/* ── Tabla responsive en móvil ── */
+@media (max-width: 768px) {
+    .table-pastel th,
+    .table-pastel td {
+        font-size: 0.85rem;
+        padding: 0.5rem 0.4rem;
+    }
+}
+
+/* ── Botones pequeños en la tabla ── */
+.btn-sm.btn-pastel-lila,
+.btn-sm.btn-pastel-rosa,
+.btn-sm.btn-pastel-cielo,
+.btn-sm.btn-pastel-menta {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 12px;
+}
+
+/* ── Contador de resultados en card-header ── */
+.card-header small.text-muted {
+    opacity: 0.75;
+    font-size: 0.8rem;
+}
+
+/* ── Placeholder del buscador ── */
+.form-control::placeholder {
+    color: var(--texto-suave);
+    opacity: 0.7;
+    font-style: italic;
+}
+
+/* ── dl/dt/dd en detalles ── */
+dt {
+    font-weight: 600;
+    color: var(--texto-suave);
+}
+
+dd {
+    color: var(--texto);
+    margin-bottom: 0.6rem;
+}
+
+/* ── Separador visual entre filas del dl ── */
+.row.mb-0 dt,
+.row.mb-0 dd {
+    border-bottom: 1px solid rgba(201,184,232,0.2);
+    padding-bottom: 0.4rem;
+    padding-top: 0.4rem;
+}
+
+/* ── Animación de fade en alertas ── */
+.alert {
+    animation: fadeInDown 0.35s ease;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Navbar brand: ícono latido ── */
+.navbar-brand i {
+    animation: latido 1.6s infinite;
+}
+
+@keyframes latido {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.18); }
+}

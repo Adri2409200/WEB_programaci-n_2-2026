@@ -1,5 +1,5 @@
 ﻿@page
-@model IndexModel
+@model Web_razor_tarea.Pages.IndexModel
 @{
     ViewData["Title"] = "Inicio";
 }
@@ -8,22 +8,21 @@
 <div class="text-center py-4 mb-4 rounded-4"
      style="background: linear-gradient(135deg, #e8dffc 0%, #fde8ef 50%, #dff5ec 100%);
             box-shadow: 0 4px 18px rgba(160,130,200,0.18);">
-
     <div class="mb-3">
         <i class="bi bi-heart-pulse-fill" style="font-size:3.5rem; color:#c9b8e8;"></i>
     </div>
     <h1 class="fw-bold mb-1" style="color:#4a4063;">Veterinaria El Arca de Moe</h1>
-    <p class="mb-0" style="color:#7a6f8a; font-size:1.1rem;">
+    <p class="mb-0" style="color:#7a6f8a; font-size:1.05rem;">
         Sistema de gestión de citas y pacientes
     </p>
 </div>
 
-<!-- Tarjetas de acceso rápido -->
+<!-- Tarjetas de acceso rápido con contadores -->
 <div class="row g-4">
 
     <!-- Propietarios -->
     <div class="col-12 col-sm-6 col-lg-3">
-        <div class="card h-100 text-center">
+        <div class="card card-inicio h-100 text-center">
             <div class="card-header propietarios py-3">
                 <i class="bi bi-people-fill fs-2"></i>
             </div>
@@ -32,7 +31,12 @@
                 <p class="card-text text-muted small flex-grow-1">
                     Registra y administra los dueños de las mascotas.
                 </p>
-                <a asp-page="/Propietarios/Index" class="btn btn-pastel-lila mt-2">
+                <div class="mb-2">
+                    <span class="badge badge-activo rounded-pill px-3 fs-6">
+                        @Model.TotalPropietarios registrado(s)
+                    </span>
+                </div>
+                <a asp-page="/Propietarios/Index" class="btn btn-pastel-lila mt-1">
                     <i class="bi bi-arrow-right-circle me-1"></i>Ver
                 </a>
             </div>
@@ -41,7 +45,7 @@
 
     <!-- Mascotas -->
     <div class="col-12 col-sm-6 col-lg-3">
-        <div class="card h-100 text-center">
+        <div class="card card-inicio h-100 text-center">
             <div class="card-header mascotas py-3">
                 <i class="bi bi-emoji-smile-fill fs-2"></i>
             </div>
@@ -50,7 +54,12 @@
                 <p class="card-text text-muted small flex-grow-1">
                     Gestiona la ficha de cada paciente animal.
                 </p>
-                <a asp-page="/Mascotas/Index" class="btn btn-pastel-menta mt-2">
+                <div class="mb-2">
+                    <span class="badge badge-activo rounded-pill px-3 fs-6">
+                        @Model.TotalMascotas registrada(s)
+                    </span>
+                </div>
+                <a asp-page="/Mascotas/Index" class="btn btn-pastel-menta mt-1">
                     <i class="bi bi-arrow-right-circle me-1"></i>Ver
                 </a>
             </div>
@@ -59,7 +68,7 @@
 
     <!-- Veterinarios -->
     <div class="col-12 col-sm-6 col-lg-3">
-        <div class="card h-100 text-center">
+        <div class="card card-inicio h-100 text-center">
             <div class="card-header veterinarios py-3">
                 <i class="bi bi-person-badge-fill fs-2"></i>
             </div>
@@ -68,7 +77,12 @@
                 <p class="card-text text-muted small flex-grow-1">
                     Administra el equipo médico de la clínica.
                 </p>
-                <a asp-page="/Veterinarios/Index" class="btn btn-pastel-cielo mt-2">
+                <div class="mb-2">
+                    <span class="badge badge-activo rounded-pill px-3 fs-6">
+                        @Model.TotalVeterinarios registrado(s)
+                    </span>
+                </div>
+                <a asp-page="/Veterinarios/Index" class="btn btn-pastel-cielo mt-1">
                     <i class="bi bi-arrow-right-circle me-1"></i>Ver
                 </a>
             </div>
@@ -77,7 +91,7 @@
 
     <!-- Citas -->
     <div class="col-12 col-sm-6 col-lg-3">
-        <div class="card h-100 text-center">
+        <div class="card card-inicio h-100 text-center">
             <div class="card-header citas py-3">
                 <i class="bi bi-calendar2-heart-fill fs-2"></i>
             </div>
@@ -86,7 +100,18 @@
                 <p class="card-text text-muted small flex-grow-1">
                     Agenda y consulta las citas programadas.
                 </p>
-                <a asp-page="/Citas/Index" class="btn btn-pastel-rosa mt-2">
+                <div class="mb-2 d-flex justify-content-center gap-2 flex-wrap">
+                    <span class="badge badge-activo rounded-pill px-2">
+                        @Model.TotalCitas total
+                    </span>
+                    @if (Model.CitasPendientes > 0)
+                    {
+                        <span class="badge badge-pendiente rounded-pill px-2">
+                            @Model.CitasPendientes pendiente(s)
+                        </span>
+                    }
+                </div>
+                <a asp-page="/Citas/Index" class="btn btn-pastel-rosa mt-1">
                     <i class="bi bi-arrow-right-circle me-1"></i>Ver
                 </a>
             </div>

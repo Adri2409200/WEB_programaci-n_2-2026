@@ -51,7 +51,9 @@ namespace Web_razor_tarea.Pages.Citas
                 .Where(v => v.Activo).OrderBy(v => v.Apellidos).ToListAsync();
 
             MascotasLista     = new SelectList(mascotas,     "Id", "Nombre");
-            VeterinariosLista = new SelectList(veterinarios, "Id", "Apellidos");
+            VeterinariosLista = new SelectList(
+                veterinarios.Select(v => new { v.Id, NombreCompleto = $"{v.Nombre} {v.Apellidos}" }),
+                "Id", "NombreCompleto");
         }
     }
 }

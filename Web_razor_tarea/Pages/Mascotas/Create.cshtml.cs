@@ -49,7 +49,10 @@ namespace Web_razor_tarea.Pages.Mascotas
                 .OrderBy(p => p.Apellidos)
                 .ToListAsync();
 
-            PropietariosLista = new SelectList(propietarios, "Id", "Apellidos");
+            // Muestra nombre completo en el selector
+            PropietariosLista = new SelectList(
+                propietarios.Select(p => new { p.Id, NombreCompleto = $"{p.Nombre} {p.Apellidos}" }),
+                "Id", "NombreCompleto");
         }
     }
 }
