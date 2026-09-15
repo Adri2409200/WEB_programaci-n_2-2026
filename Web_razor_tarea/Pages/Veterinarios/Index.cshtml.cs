@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Web_razor_tarea.Data;
@@ -14,14 +15,27 @@ namespace Web_razor_tarea.Pages.Veterinarios
             _context = context;
         }
 
-        // Lista de veterinarios ordenada por apellido
         public IList<Veterinario> Veterinarios { get; set; } = new List<Veterinario>();
+
+        // Texto de búsqueda
+        [BindProperty(SupportsGet = true)]
+        public string? Busqueda { get; set; }
 
         public async Task OnGetAsync()
         {
-            Veterinarios = await _context.Veterinarios
-                .OrderBy(v => v.Apellidos)
-                .ToListAsync();
+            var consulta = _context.Veterinarios.AsQueryable();
+
+            // Filtra por nombre, apellidos o especialidad
+            if (!string.IsNullOrWhiteSpace(Busqueda))
+            {
+                var termino = Busqueda.Trim().ToLower();
+                consulta = consulta.Where(v =>
+                    v.Nombre.ToLower().Contains(termino) ||
+                    v.Apellidos.ToLower().Contains(termino) ||
+                    v.Especialidad.ToLower().Contains(termino));
+            }
+
+            Veterinarios = await consulta.OrderBy(v => v.Apellidos).ToListAsync();
         }
     }
 }

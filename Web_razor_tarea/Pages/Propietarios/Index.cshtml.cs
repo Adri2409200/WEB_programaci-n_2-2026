@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Web_razor_tarea.Data;
@@ -14,14 +15,27 @@ namespace Web_razor_tarea.Pages.Propietarios
             _context = context;
         }
 
-        // Lista de propietarios que se muestra en la tabla
         public IList<Propietario> Propietarios { get; set; } = new List<Propietario>();
+
+        // Texto de búsqueda ingresado por el usuario
+        [BindProperty(SupportsGet = true)]
+        public string? Busqueda { get; set; }
 
         public async Task OnGetAsync()
         {
-            Propietarios = await _context.Propietarios
-                .OrderBy(p => p.Apellidos)
-                .ToListAsync();
+            var consulta = _context.Propietarios.AsQueryable();
+
+            // Filtra por nombre, apellidos o email si hay texto de búsqueda
+            if (!string.IsNullOrWhiteSpace(Busqueda))
+            {
+                var termino = Busqueda.Trim().ToLower();
+                consulta = consulta.Where(p =>
+                    p.Nombre.ToLower().Contains(termino) ||
+                    p.Apellidos.ToLower().Contains(termino) ||
+                    p.Email.ToLower().Contains(termino));
+            }
+
+            Propietarios = await consulta.OrderBy(p => p.Apellidos).ToListAsync();
         }
     }
 }

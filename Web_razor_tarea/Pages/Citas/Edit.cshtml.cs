@@ -55,20 +55,16 @@ namespace Web_razor_tarea.Pages.Citas
                 throw;
             }
 
+            TempData["Exito"] = "Cita actualizada correctamente.";
             return RedirectToPage("./Index");
         }
 
         private async Task CargarSelectoresAsync()
         {
             var mascotas = await _context.Mascotas
-                .Where(m => m.Activo)
-                .OrderBy(m => m.Nombre)
-                .ToListAsync();
-
+                .Where(m => m.Activo).OrderBy(m => m.Nombre).ToListAsync();
             var veterinarios = await _context.Veterinarios
-                .Where(v => v.Activo)
-                .OrderBy(v => v.Apellidos)
-                .ToListAsync();
+                .Where(v => v.Activo).OrderBy(v => v.Apellidos).ToListAsync();
 
             MascotasLista     = new SelectList(mascotas,     "Id", "Nombre",    Cita.MascotaId);
             VeterinariosLista = new SelectList(veterinarios, "Id", "Apellidos", Cita.VeterinarioId);

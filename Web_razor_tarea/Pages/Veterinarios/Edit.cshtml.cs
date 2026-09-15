@@ -46,6 +46,7 @@ namespace Web_razor_tarea.Pages.Veterinarios
                 throw;
             }
 
+            TempData["Exito"] = $"Veterinario '{Veterinario.Nombre} {Veterinario.Apellidos}' actualizado correctamente.";
             return RedirectToPage("./Index");
         }
     }

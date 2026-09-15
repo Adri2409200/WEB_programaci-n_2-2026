@@ -25,6 +25,8 @@ namespace Web_razor_tarea.Pages.Veterinarios
 
             _context.Veterinarios.Add(Veterinario);
             await _context.SaveChangesAsync();
+
+            TempData["Exito"] = $"Veterinario '{Veterinario.Nombre} {Veterinario.Apellidos}' registrado correctamente.";
             return RedirectToPage("./Index");
         }
     }

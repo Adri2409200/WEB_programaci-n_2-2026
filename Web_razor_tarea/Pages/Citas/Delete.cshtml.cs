@@ -42,6 +42,7 @@ namespace Web_razor_tarea.Pages.Citas
             {
                 _context.Citas.Remove(cita);
                 await _context.SaveChangesAsync();
+                TempData["Exito"] = "Cita eliminada correctamente.";
             }
 
             return RedirectToPage("./Index");

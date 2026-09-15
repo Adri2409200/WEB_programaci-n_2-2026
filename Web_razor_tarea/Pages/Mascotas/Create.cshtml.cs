@@ -16,7 +16,6 @@ namespace Web_razor_tarea.Pages.Mascotas
             _context = context;
         }
 
-        // Lista de propietarios activos para el selector
         public SelectList PropietariosLista { get; set; } = default!;
 
         [BindProperty]
@@ -38,10 +37,11 @@ namespace Web_razor_tarea.Pages.Mascotas
 
             _context.Mascotas.Add(Mascota);
             await _context.SaveChangesAsync();
+
+            TempData["Exito"] = $"Mascota '{Mascota.Nombre}' registrada correctamente.";
             return RedirectToPage("./Index");
         }
 
-        // Carga los propietarios activos ordenados por apellido
         private async Task CargarPropietariosAsync()
         {
             var propietarios = await _context.Propietarios
@@ -49,9 +49,7 @@ namespace Web_razor_tarea.Pages.Mascotas
                 .OrderBy(p => p.Apellidos)
                 .ToListAsync();
 
-            PropietariosLista = new SelectList(
-                propietarios, "Id", "Apellidos"
-            );
+            PropietariosLista = new SelectList(propietarios, "Id", "Apellidos");
         }
     }
 }

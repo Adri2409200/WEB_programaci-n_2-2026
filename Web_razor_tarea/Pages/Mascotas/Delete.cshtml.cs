@@ -41,6 +41,7 @@ namespace Web_razor_tarea.Pages.Mascotas
             {
                 _context.Mascotas.Remove(mascota);
                 await _context.SaveChangesAsync();
+                TempData["Exito"] = $"Mascota '{mascota.Nombre}' eliminada.";
             }
 
             return RedirectToPage("./Index");

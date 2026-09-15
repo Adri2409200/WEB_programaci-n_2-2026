@@ -54,6 +54,7 @@ namespace Web_razor_tarea.Pages.Mascotas
                 throw;
             }
 
+            TempData["Exito"] = $"Mascota '{Mascota.Nombre}' actualizada correctamente.";
             return RedirectToPage("./Index");
         }
 
@@ -64,9 +65,7 @@ namespace Web_razor_tarea.Pages.Mascotas
                 .OrderBy(p => p.Apellidos)
                 .ToListAsync();
 
-            PropietariosLista = new SelectList(
-                propietarios, "Id", "Apellidos", Mascota.PropietarioId
-            );
+            PropietariosLista = new SelectList(propietarios, "Id", "Apellidos", Mascota.PropietarioId);
         }
     }
 }

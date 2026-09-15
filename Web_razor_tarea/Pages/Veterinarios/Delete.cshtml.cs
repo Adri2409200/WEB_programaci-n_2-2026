@@ -22,9 +22,7 @@ namespace Web_razor_tarea.Pages.Veterinarios
         {
             if (id == null) return NotFound();
 
-            var veterinario = await _context.Veterinarios
-                .FirstOrDefaultAsync(v => v.Id == id);
-
+            var veterinario = await _context.Veterinarios.FirstOrDefaultAsync(v => v.Id == id);
             if (veterinario == null) return NotFound();
 
             Veterinario = veterinario;
@@ -40,6 +38,7 @@ namespace Web_razor_tarea.Pages.Veterinarios
             {
                 _context.Veterinarios.Remove(veterinario);
                 await _context.SaveChangesAsync();
+                TempData["Exito"] = $"Veterinario '{veterinario.Nombre} {veterinario.Apellidos}' eliminado.";
             }
 
             return RedirectToPage("./Index");

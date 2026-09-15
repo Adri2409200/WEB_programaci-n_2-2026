@@ -16,7 +16,6 @@ namespace Web_razor_tarea.Pages.Citas
             _context = context;
         }
 
-        // Selectores para mascota y veterinario
         public SelectList MascotasLista    { get; set; } = default!;
         public SelectList VeterinariosLista { get; set; } = default!;
 
@@ -39,21 +38,17 @@ namespace Web_razor_tarea.Pages.Citas
 
             _context.Citas.Add(Cita);
             await _context.SaveChangesAsync();
+
+            TempData["Exito"] = "Cita registrada correctamente.";
             return RedirectToPage("./Index");
         }
 
-        // Carga mascotas activas y veterinarios activos para los selectores
         private async Task CargarSelectoresAsync()
         {
             var mascotas = await _context.Mascotas
-                .Where(m => m.Activo)
-                .OrderBy(m => m.Nombre)
-                .ToListAsync();
-
+                .Where(m => m.Activo).OrderBy(m => m.Nombre).ToListAsync();
             var veterinarios = await _context.Veterinarios
-                .Where(v => v.Activo)
-                .OrderBy(v => v.Apellidos)
-                .ToListAsync();
+                .Where(v => v.Activo).OrderBy(v => v.Apellidos).ToListAsync();
 
             MascotasLista     = new SelectList(mascotas,     "Id", "Nombre");
             VeterinariosLista = new SelectList(veterinarios, "Id", "Apellidos");

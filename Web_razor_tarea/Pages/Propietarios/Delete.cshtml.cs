@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +8,9 @@ namespace Web_razor_tarea.Pages.Propietarios
 {
     public class DeleteModel : PageModel
     {
-        private readonly Web_razor_tarea.Data.VeterinariaContext _context;
+        private readonly VeterinariaContext _context;
 
-        public DeleteModel(Web_razor_tarea.Data.VeterinariaContext context)
+        public DeleteModel(VeterinariaContext context)
         {
             _context = context;
         }
@@ -24,36 +20,25 @@ namespace Web_razor_tarea.Pages.Propietarios
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var propietario = await _context.Propietarios.FirstOrDefaultAsync(m => m.Id == id);
+            if (propietario == null) return NotFound();
 
-            if (propietario is not null)
-            {
-                Propietario = propietario;
-
-                return Page();
-            }
-
-            return NotFound();
+            Propietario = propietario;
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var propietario = await _context.Propietarios.FindAsync(id);
             if (propietario != null)
             {
-                Propietario = propietario;
-                _context.Propietarios.Remove(Propietario);
+                _context.Propietarios.Remove(propietario);
                 await _context.SaveChangesAsync();
+                TempData["Exito"] = $"Propietario '{propietario.Nombre} {propietario.Apellidos}' eliminado.";
             }
 
             return RedirectToPage("./Index");

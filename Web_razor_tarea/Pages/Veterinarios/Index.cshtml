@@ -13,9 +13,28 @@
     </a>
 </div>
 
+<!-- Buscador -->
+<form method="get" class="mb-3">
+    <div class="input-group">
+        <span class="input-group-text" style="background:var(--cielo-claro); border-color:var(--cielo);">
+            <i class="bi bi-search" style="color:var(--texto-suave);"></i>
+        </span>
+        <input type="text" name="Busqueda" value="@Model.Busqueda"
+               class="form-control" placeholder="Buscar por nombre, apellidos o especialidad..." />
+        <button type="submit" class="btn btn-pastel-cielo">Buscar</button>
+        @if (!string.IsNullOrWhiteSpace(Model.Busqueda))
+        {
+            <a asp-page="Index" class="btn btn-pastel-rosa">
+                <i class="bi bi-x-lg"></i>
+            </a>
+        }
+    </div>
+</form>
+
 <div class="card">
-    <div class="card-header veterinarios py-2">
+    <div class="card-header veterinarios py-2 d-flex justify-content-between align-items-center">
         <small class="fw-semibold">Equipo médico registrado</small>
+        <small class="text-muted">@Model.Veterinarios.Count resultado(s)</small>
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">
@@ -69,7 +88,7 @@
                         <tr>
                             <td colspan="6" class="text-center py-4 text-muted">
                                 <i class="bi bi-inbox fs-3 d-block mb-1"></i>
-                                No hay veterinarios registrados aún.
+                                No se encontraron veterinarios.
                             </td>
                         </tr>
                     }
