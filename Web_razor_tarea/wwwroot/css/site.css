@@ -221,3 +221,10 @@ body {
 .alert-danger  { background: var(--rosa-claro);  color: #8b2a42; }
 .alert-warning { background: var(--durazno);     color: #7a5a1a; }
 .alert-info    { background: var(--cielo-claro); color: #1a4f7a; }
+
+/* ── Link activo en el navbar ── */
+.navbar-veterinaria .nav-link.active {
+    background: var(--blanco-op);
+    color: #5a3e7a !important;
+    font-weight: 700;
+}

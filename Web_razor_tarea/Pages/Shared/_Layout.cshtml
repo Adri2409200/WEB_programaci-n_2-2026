@@ -8,17 +8,21 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Web_razor_tarea.styles.css" asp-append-version="true" />
-    <!-- Iconos Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
 </head>
 <body>
+
+@{
+    // Detecta la sección activa según la ruta de la página actual
+    var pagina = ViewContext.RouteData.Values["page"]?.ToString() ?? "";
+}
 
     <!-- Barra de navegación -->
     <header>
         <nav class="navbar navbar-expand-md navbar-veterinaria">
             <div class="container">
 
-                <!-- Logo y nombre -->
+                <!-- Logo -->
                 <a class="navbar-brand d-flex align-items-center gap-2" asp-page="/Index">
                     <i class="bi bi-heart-pulse-fill fs-4"></i>
                     El Arca de Moe
@@ -32,34 +36,45 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Links de navegación -->
+                <!-- Links -->
                 <div class="collapse navbar-collapse" id="menuPrincipal">
                     <ul class="navbar-nav ms-auto gap-1">
+
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/Index">
+                            <a class="nav-link @(pagina == "/Index" ? "active" : "")"
+                               asp-page="/Index">
                                 <i class="bi bi-house-heart-fill me-1"></i>Inicio
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/Propietarios/Index">
+                            <a class="nav-link @(pagina.StartsWith("/Propietarios") ? "active" : "")"
+                               asp-page="/Propietarios/Index">
                                 <i class="bi bi-people-fill me-1"></i>Propietarios
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/Mascotas/Index">
+                            <a class="nav-link @(pagina.StartsWith("/Mascotas") ? "active" : "")"
+                               asp-page="/Mascotas/Index">
                                 <i class="bi bi-emoji-smile-fill me-1"></i>Mascotas
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/Veterinarios/Index">
+                            <a class="nav-link @(pagina.StartsWith("/Veterinarios") ? "active" : "")"
+                               asp-page="/Veterinarios/Index">
                                 <i class="bi bi-person-badge-fill me-1"></i>Veterinarios
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/Citas/Index">
+                            <a class="nav-link @(pagina.StartsWith("/Citas") ? "active" : "")"
+                               asp-page="/Citas/Index">
                                 <i class="bi bi-calendar2-heart-fill me-1"></i>Citas
                             </a>
                         </li>
+
                     </ul>
                 </div>
 
