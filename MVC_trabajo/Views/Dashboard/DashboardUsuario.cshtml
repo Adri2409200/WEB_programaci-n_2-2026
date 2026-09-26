@@ -2,40 +2,82 @@
     ViewData["Title"] = "Dashboard Usuario";
 }
 
-<div class="row mb-4">
-    <div class="col">
-        <h2>Bienvenido, @Context.Session.GetString("UsuarioNombre")</h2>
-        <p class="text-muted">Panel de Usuario - Biblioteca UPV</p>
+<div class="mb-4">
+    <h2 class="mb-1">👋 Bienvenido, @Context.Session.GetString("UsuarioNombre")</h2>
+    <p class="text-muted">Panel de Usuario · Biblioteca UPV</p>
+</div>
+
+<!-- Estadísticas personales -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-md-4">
+        <div class="stat-card stat-azul">
+            <div class="stat-icono">📋</div>
+            <div class="stat-numero">@ViewBag.MisPrestamos</div>
+            <div class="stat-label">Mis Préstamos</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4">
+        <div class="stat-card stat-naranja">
+            <div class="stat-icono">⏳</div>
+            <div class="stat-numero">@ViewBag.MisPendientes</div>
+            <div class="stat-label">Pendientes</div>
+        </div>
+    </div>
+    <div class="col-6 col-md-4">
+        <div class="stat-card stat-rojo">
+            <div class="stat-icono">❌</div>
+            <div class="stat-numero">@ViewBag.MisVencidos</div>
+            <div class="stat-label">Vencidos</div>
+        </div>
     </div>
 </div>
 
-<!-- Accesos rápidos del usuario normal -->
-<div class="row g-4">
-    <div class="col-md-4">
-        <div class="card text-white bg-primary h-100">
-            <div class="card-body text-center">
-                <h5 class="card-title">Catálogo</h5>
-                <p class="card-text">Ver los libros disponibles</p>
-                <a asp-controller="Libros" asp-action="Index" class="btn btn-light btn-sm">Ver catálogo</a>
+<!-- Info último préstamo -->
+<div class="row g-3 mb-4">
+    <div class="col-md-6">
+        <div class="info-card">
+            <div class="info-card-title">Mi Último Préstamo</div>
+            <div class="info-item-col">
+                <small class="text-muted">📗 Libro</small>
+                <strong>@ViewBag.MiUltimoLibro</strong>
+            </div>
+            <hr class="my-2" />
+            <div class="info-item-col">
+                <small class="text-muted">📅 Fecha de préstamo</small>
+                <strong>@ViewBag.MiUltimaFecha</strong>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card text-white bg-warning h-100">
-            <div class="card-body text-center">
-                <h5 class="card-title">Mis Préstamos</h5>
-                <p class="card-text">Ver mis préstamos solicitados</p>
-                <a asp-controller="Prestamos" asp-action="MisPrestamos" class="btn btn-light btn-sm">Ver mis préstamos</a>
+    <div class="col-md-6">
+        <div class="info-card">
+            <div class="info-card-title">Catálogo Disponible</div>
+            <div class="info-item">
+                <span>📚 Libros en biblioteca</span>
+                <span class="badge bg-primary">@ViewBag.TotalLibros</span>
+            </div>
+            <div class="info-item">
+                <span>📵 Sin stock</span>
+                <span class="badge bg-secondary">@ViewBag.LibrosSinStock</span>
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card text-white bg-danger h-100">
-            <div class="card-body text-center">
-                <h5 class="card-title">Cerrar Sesión</h5>
-                <p class="card-text">Salir del sistema</p>
-                <a asp-controller="Account" asp-action="Logout" class="btn btn-light btn-sm">Salir</a>
-            </div>
-        </div>
+</div>
+
+<!-- Accesos rápidos -->
+<div class="row g-3">
+    <div class="col-6 col-md-4">
+        <a asp-controller="Libros" asp-action="Index" class="acceso-card acceso-azul">
+            <span>📚</span><p>Catálogo</p>
+        </a>
+    </div>
+    <div class="col-6 col-md-4">
+        <a asp-controller="Prestamos" asp-action="MisPrestamos" class="acceso-card acceso-verde">
+            <span>📋</span><p>Mis Préstamos</p>
+        </a>
+    </div>
+    <div class="col-6 col-md-4">
+        <a asp-controller="Account" asp-action="Logout" class="acceso-card acceso-rojo">
+            <span>🚪</span><p>Salir</p>
+        </a>
     </div>
 </div>

@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Iniciar Sesión";
-    Layout = null; // Sin layout para la página de login
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -12,54 +12,225 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
     <style>
+        /* Fondo con degradado y burbujas decorativas */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         body {
-            background-color: #f0f4f8;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0d1b2a 0%, #1b2a4a 45%, #2d1b69 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
         }
-        .login-card {
+
+        /* Burbujas decorativas de fondo */
+        .burbuja {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.12;
+        }
+        .burbuja-1 {
+            width: 500px; height: 500px;
+            top: -150px; right: -150px;
+            background: radial-gradient(circle, #7c3aed, transparent);
+        }
+        .burbuja-2 {
+            width: 400px; height: 400px;
+            bottom: -100px; left: -100px;
+            background: radial-gradient(circle, #4f46e5, transparent);
+        }
+        .burbuja-3 {
+            width: 250px; height: 250px;
+            top: 50%; left: 10%;
+            background: radial-gradient(circle, #818cf8, transparent);
+            opacity: 0.07;
+        }
+
+        /* Contenedor centrado */
+        .login-box {
+            width: 100%;
             max-width: 420px;
-            margin: 80px auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 16px;
+            position: relative;
+            z-index: 10;
         }
+
+        /* Tarjeta principal */
+        .login-card {
+            border-radius: 22px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.15);
+            box-shadow:
+                0 25px 50px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(255,255,255,0.05),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.04);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+
+        /* Encabezado de la tarjeta */
         .login-header {
-            background-color: #1a3a5c;
-            color: white;
-            border-radius: 12px 12px 0 0;
-            padding: 24px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 60%, #9333ea 100%);
+            padding: 34px 28px 28px;
             text-align: center;
+            position: relative;
         }
+
+        .login-header .icono {
+            font-size: 2.8rem;
+            display: block;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+        }
+
         .login-header h4 {
-            margin: 0;
-            font-weight: 600;
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.55rem;
+            letter-spacing: 0.3px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            margin-bottom: 6px;
         }
+
         .login-header p {
-            margin: 4px 0 0;
-            font-size: 13px;
-            opacity: 0.8;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.82rem;
+            margin: 0;
+        }
+
+        /* Cuerpo del formulario */
+        .login-body {
+            background: rgba(255,255,255,0.93);
+            padding: 2rem 2rem 2.2rem;
+        }
+
+        .login-body h5 {
+            color: #1e1b4b;
+            font-weight: 700;
+            font-size: 1.05rem;
+            text-align: center;
+            margin-bottom: 1.4rem;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #374151;
+            margin-bottom: 5px;
+        }
+
+        .form-control {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 11px 14px;
+            font-size: 0.95rem;
+            background: #f8fafc;
+            transition: all 0.2s;
+            color: #1e293b;
+        }
+
+        .form-control:focus {
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.18);
+            background: #fff;
+            outline: none;
+        }
+
+        .form-control::placeholder {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Botón ingresar */
+        .btn-ingresar {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            box-shadow: 0 4px 18px rgba(79,70,229,0.45);
+            transition: all 0.2s;
+            margin-top: 0.5rem;
+        }
+
+        .btn-ingresar:hover {
+            background: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+            box-shadow: 0 6px 22px rgba(79,70,229,0.55);
+            transform: translateY(-2px);
+        }
+
+        .btn-ingresar:active {
+            transform: translateY(0);
+        }
+
+        /* Alerta de error */
+        .alerta-error {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.3);
+            border-radius: 10px;
+            padding: 10px 14px;
+            color: #dc2626;
+            font-size: 0.88rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Texto error validación */
+        .text-danger {
+            font-size: 0.8rem;
+            color: #dc2626 !important;
+        }
+
+        /* Responsivo */
+        @@media (max-width: 480px) {
+            .login-box { padding: 12px; }
+            .login-header { padding: 24px 20px 20px; }
+            .login-body { padding: 1.5rem 1.5rem 1.8rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card login-card">
-            <!-- Encabezado con nombre de la institución -->
+    <!-- Burbujas decorativas -->
+    <div class="burbuja burbuja-1"></div>
+    <div class="burbuja burbuja-2"></div>
+    <div class="burbuja burbuja-3"></div>
+
+    <!-- Tarjeta centrada -->
+    <div class="login-box">
+        <div class="login-card">
+
+            <!-- Encabezado -->
             <div class="login-header">
+                <span class="icono">📚</span>
                 <h4>Biblioteca UPV</h4>
-                <p>Universidad Privada del Valle - Sede Sucre</p>
+                <p>Universidad Privada del Valle · Sede Sucre</p>
             </div>
 
-            <div class="card-body p-4">
-                <h5 class="card-title text-center mb-4">Iniciar Sesión</h5>
+            <!-- Formulario -->
+            <div class="login-body">
+                <h5>Iniciar Sesión</h5>
 
-                <!-- Mensajes de error generales -->
                 @if (!ViewData.ModelState.IsValid)
                 {
-                    <div class="alert alert-danger">
+                    <div class="alerta-error">
                         @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
                         {
-                            <span>@error.ErrorMessage</span>
+                            <div>@error.ErrorMessage</div>
                         }
                     </div>
                 }
@@ -68,22 +239,18 @@
                     @Html.AntiForgeryToken()
 
                     <div class="mb-3">
-                        <label asp-for="Correo" class="form-label"></label>
-                        <input asp-for="Correo" class="form-control" placeholder="correo@ejemplo.com" />
-                        <span asp-validation-for="Correo" class="text-danger small"></span>
+                        <label asp-for="Correo" class="form-label">Correo electrónico</label>
+                        <input asp-for="Correo" class="form-control" placeholder="correo@gmail.com" autocomplete="email" />
+                        <span asp-validation-for="Correo" class="text-danger"></span>
                     </div>
 
-                    <div class="mb-3">
-                        <label asp-for="Contrasena" class="form-label"></label>
-                        <input asp-for="Contrasena" class="form-control" placeholder="••••••••" />
-                        <span asp-validation-for="Contrasena" class="text-danger small"></span>
+                    <div class="mb-4">
+                        <label asp-for="Contrasena" class="form-label">Contraseña</label>
+                        <input asp-for="Contrasena" class="form-control" placeholder="••••••••" autocomplete="current-password" />
+                        <span asp-validation-for="Contrasena" class="text-danger"></span>
                     </div>
 
-                    <div class="d-grid mt-4">
-                        <button type="submit" class="btn btn-primary">
-                            Ingresar
-                        </button>
-                    </div>
+                    <button type="submit" class="btn-ingresar">Ingresar</button>
                 </form>
             </div>
         </div>
