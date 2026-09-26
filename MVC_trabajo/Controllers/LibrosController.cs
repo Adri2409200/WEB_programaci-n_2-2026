@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVC_trabajo.Data;
+using MVC_trabajo.Filters;
 using MVC_trabajo.Models;
 
 namespace MVC_trabajo.Controllers
 {
+    // Todos los logueados pueden ver libros
+    [SoloLogueado]
     public class LibrosController : Controller
     {
         private readonly AppDbContext _context;
@@ -19,41 +17,33 @@ namespace MVC_trabajo.Controllers
             _context = context;
         }
 
-        // GET: Libros
+        // Todos pueden ver el catálogo
         public async Task<IActionResult> Index()
         {
             return View(await _context.Libros.ToListAsync());
         }
 
-        // GET: Libros/Details/5
+        // Todos pueden ver el detalle de un libro
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var libro = await _context.Libros
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (libro == null)
-            {
-                return NotFound();
-            }
+            var libro = await _context.Libros.FirstOrDefaultAsync(m => m.Id == id);
+            if (libro == null) return NotFound();
 
             return View(libro);
         }
 
-        // GET: Libros/Create
+        // Solo Admin y Bibliotecario pueden crear libros
+        [SoloLogueado("Administrador", "Bibliotecario")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Libros/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SoloLogueado("Administrador", "Bibliotecario")]
         public async Task<IActionResult> Create([Bind("Id,Titulo,Autor,ISBN,Editorial,Anio,Categoria,Cantidad")] Libro libro)
         {
             if (ModelState.IsValid)
@@ -65,33 +55,24 @@ namespace MVC_trabajo.Controllers
             return View(libro);
         }
 
-        // GET: Libros/Edit/5
+        // Solo Admin y Bibliotecario pueden editar libros
+        [SoloLogueado("Administrador", "Bibliotecario")]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var libro = await _context.Libros.FindAsync(id);
-            if (libro == null)
-            {
-                return NotFound();
-            }
+            if (libro == null) return NotFound();
+
             return View(libro);
         }
 
-        // POST: Libros/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [SoloLogueado("Administrador", "Bibliotecario")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Titulo,Autor,ISBN,Editorial,Anio,Categoria,Cantidad")] Libro libro)
         {
-            if (id != libro.Id)
-            {
-                return NotFound();
-            }
+            if (id != libro.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -102,48 +83,34 @@ namespace MVC_trabajo.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!LibroExists(libro.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!LibroExists(libro.Id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
             return View(libro);
         }
 
-        // GET: Libros/Delete/5
+        // Solo Admin puede eliminar libros
+        [SoloLogueado("Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var libro = await _context.Libros
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (libro == null)
-            {
-                return NotFound();
-            }
+            var libro = await _context.Libros.FirstOrDefaultAsync(m => m.Id == id);
+            if (libro == null) return NotFound();
 
             return View(libro);
         }
 
-        // POST: Libros/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [SoloLogueado("Administrador")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var libro = await _context.Libros.FindAsync(id);
             if (libro != null)
-            {
                 _context.Libros.Remove(libro);
-            }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

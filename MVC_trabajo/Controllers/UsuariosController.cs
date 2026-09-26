@@ -1,15 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MVC_trabajo.Data;
+using MVC_trabajo.Filters;
 using MVC_trabajo.Models;
 
 namespace MVC_trabajo.Controllers
 {
+    // Solo el Administrador puede gestionar usuarios
+    [SoloLogueado("Administrador")]
     public class UsuariosController : Controller
     {
         private readonly AppDbContext _context;
@@ -19,39 +17,31 @@ namespace MVC_trabajo.Controllers
             _context = context;
         }
 
-        // GET: Usuarios
+        // Lista todos los usuarios
         public async Task<IActionResult> Index()
         {
             return View(await _context.Usuarios.ToListAsync());
         }
 
-        // GET: Usuarios/Details/5
+        // Ver detalle de un usuario
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(m => m.Id == id);
+            if (usuario == null) return NotFound();
 
             return View(usuario);
         }
 
-        // GET: Usuarios/Create
+        // Formulario para crear usuario
         public IActionResult Create()
         {
+            // Lista de roles disponibles para el select
+            ViewBag.Roles = new List<string> { "Administrador", "Bibliotecario", "Usuario" };
             return View();
         }
 
-        // POST: Usuarios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nombre,Correo,Contrasena,Rol")] Usuario usuario)
@@ -62,36 +52,27 @@ namespace MVC_trabajo.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Roles = new List<string> { "Administrador", "Bibliotecario", "Usuario" };
             return View(usuario);
         }
 
-        // GET: Usuarios/Edit/5
+        // Formulario para editar usuario
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+            if (usuario == null) return NotFound();
+
+            ViewBag.Roles = new List<string> { "Administrador", "Bibliotecario", "Usuario" };
             return View(usuario);
         }
 
-        // POST: Usuarios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Correo,Contrasena,Rol")] Usuario usuario)
         {
-            if (id != usuario.Id)
-            {
-                return NotFound();
-            }
+            if (id != usuario.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -102,48 +83,33 @@ namespace MVC_trabajo.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UsuarioExists(usuario.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!UsuarioExists(usuario.Id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Roles = new List<string> { "Administrador", "Bibliotecario", "Usuario" };
             return View(usuario);
         }
 
-        // GET: Usuarios/Delete/5
+        // Confirmar eliminación de usuario
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (usuario == null)
-            {
-                return NotFound();
-            }
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(m => m.Id == id);
+            if (usuario == null) return NotFound();
 
             return View(usuario);
         }
 
-        // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario != null)
-            {
                 _context.Usuarios.Remove(usuario);
-            }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
