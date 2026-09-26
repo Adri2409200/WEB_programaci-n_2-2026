@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Dashboard Usuario";
+}
+
+<div class="row mb-4">
+    <div class="col">
+        <h2>Bienvenido, @Context.Session.GetString("UsuarioNombre")</h2>
+        <p class="text-muted">Panel de Usuario - Biblioteca UPV</p>
+    </div>
+</div>
+
+<!-- Accesos rápidos del usuario normal -->
+<div class="row g-4">
+    <div class="col-md-4">
+        <div class="card text-white bg-primary h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Catálogo</h5>
+                <p class="card-text">Ver los libros disponibles</p>
+                <a asp-controller="Libros" asp-action="Index" class="btn btn-light btn-sm">Ver catálogo</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-warning h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Mis Préstamos</h5>
+                <p class="card-text">Ver mis préstamos solicitados</p>
+                <a asp-controller="Prestamos" asp-action="MisPrestamos" class="btn btn-light btn-sm">Ver mis préstamos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-white bg-danger h-100">
+            <div class="card-body text-center">
+                <h5 class="card-title">Cerrar Sesión</h5>
+                <p class="card-text">Salir del sistema</p>
+                <a asp-controller="Account" asp-action="Logout" class="btn btn-light btn-sm">Salir</a>
+            </div>
+        </div>
+    </div>
+</div>

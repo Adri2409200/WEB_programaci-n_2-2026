@@ -1,0 +1,96 @@
+@model MVC_trabajo.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Iniciar Sesión";
+    Layout = null; // Sin layout para la página de login
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <style>
+        body {
+            background-color: #f0f4f8;
+        }
+        .login-card {
+            max-width: 420px;
+            margin: 80px auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .login-header {
+            background-color: #1a3a5c;
+            color: white;
+            border-radius: 12px 12px 0 0;
+            padding: 24px;
+            text-align: center;
+        }
+        .login-header h4 {
+            margin: 0;
+            font-weight: 600;
+        }
+        .login-header p {
+            margin: 4px 0 0;
+            font-size: 13px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card login-card">
+            <!-- Encabezado con nombre de la institución -->
+            <div class="login-header">
+                <h4>Biblioteca UPV</h4>
+                <p>Universidad Privada del Valle - Sede Sucre</p>
+            </div>
+
+            <div class="card-body p-4">
+                <h5 class="card-title text-center mb-4">Iniciar Sesión</h5>
+
+                <!-- Mensajes de error generales -->
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <span>@error.ErrorMessage</span>
+                        }
+                    </div>
+                }
+
+                <form asp-action="Login" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label asp-for="Correo" class="form-label"></label>
+                        <input asp-for="Correo" class="form-control" placeholder="correo@ejemplo.com" />
+                        <span asp-validation-for="Correo" class="text-danger small"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Contrasena" class="form-label"></label>
+                        <input asp-for="Contrasena" class="form-control" placeholder="••••••••" />
+                        <span asp-validation-for="Contrasena" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            Ingresar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+</body>
+</html>
