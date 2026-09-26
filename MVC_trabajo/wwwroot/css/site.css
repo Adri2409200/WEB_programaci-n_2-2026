@@ -1,31 +1,192 @@
+/* Estilos generales */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    scroll-behavior: smooth;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #f4f6f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* Navbar */
+.navbar {
+    background-color: #1a3a5c !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #fff !important;
+    letter-spacing: 0.5px;
+}
+
+.navbar .nav-link {
+    color: #cce0f5 !important;
+    transition: color 0.2s;
+}
+
+.navbar .nav-link:hover {
+    color: #ffffff !important;
+}
+
+/* Footer */
+.footer {
+    background-color: #1a3a5c;
+    color: #cce0f5;
+    padding: 12px 0;
+    font-size: 0.85rem;
+}
+
+/* Tarjetas del dashboard */
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Títulos de página */
+h2 {
+    color: #1a3a5c;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+h5.card-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Tablas */
+.table {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.table thead.table-dark th {
+    background-color: #1a3a5c;
+    color: #fff;
+    font-weight: 500;
+    border: none;
+}
+
+.table tbody tr:hover {
+    background-color: #eaf2fb;
+}
+
+/* Botones */
+.btn {
+    border-radius: 6px;
+    font-size: 0.875rem;
+}
+
+.btn-primary {
+    background-color: #1a3a5c;
+    border-color: #1a3a5c;
+}
+
+.btn-primary:hover {
+    background-color: #14304e;
+    border-color: #14304e;
+}
+
+.btn:focus, .btn:active:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #1a3a5c;
+}
+
+/* Formularios */
+.form-control, .form-select {
+    border-radius: 6px;
+    border: 1px solid #c8d6e5;
+    font-size: 0.95rem;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #1a3a5c;
+    box-shadow: 0 0 0 0.2rem rgba(26, 58, 92, 0.2);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #444;
+}
+
+/* Badges de estado */
+.badge {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+/* Alertas */
+.alert {
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+/* Página de login */
+.login-card {
+    max-width: 420px;
+    margin: 80px auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+    border: none;
+}
+
+.login-header {
+    background-color: #1a3a5c;
+    color: white;
+    border-radius: 12px 12px 0 0;
+    padding: 28px 24px;
+    text-align: center;
+}
+
+.login-header h4 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.login-header p {
+    margin: 6px 0 0;
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+/* Separadores y pequeños detalles */
+hr {
+    border-color: #d0dde8;
+}
+
+a {
+    color: #1a3a5c;
+}
+
+a:hover {
+    color: #0d2640;
 }
